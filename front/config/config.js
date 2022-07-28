@@ -1,1 +1,1 @@
-export const backUrl = 'http://3.35.8.31';
+export const backUrl = 'http://api.spelarbird.com';
