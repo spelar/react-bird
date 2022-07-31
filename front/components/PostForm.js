@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { ADD_POST_REQUEST, UPLOAD_IMAGES_REQUEST, REMOVE_IMAGE } from "../reducers/post";
 import { useRef } from "react";
 import useInput from "../hooks/useInput";
-import { backUrl } from "../config/config";
 
 const PostForm = () => {
 	const { imagePaths, addPostDone } = useSelector(state => state.post);
