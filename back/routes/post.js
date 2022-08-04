@@ -82,7 +82,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => { // POST 
 
 router.post('/images', isLoggedIn, upload.array('image'), async (req, res, next) => {
 	try {
-		res.json(req.files.map((v) => v.location));
+		res.json(req.files.map((v) => v.location.replace(/\/original\//, '/thumb/')));
 	} catch (error) {
 		console.error(error);
 		next(error);
