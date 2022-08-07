@@ -1,1 +1,1 @@
-export const backUrl = 'http://api.spelarbird.com';
+export const backUrl = 'https://api.spelarbird.com';
