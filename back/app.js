@@ -32,7 +32,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(hpp());
   app.use(helmet({ contentSecurityPolicy: false }));
   app.use(cors({
-    origin: 'http://spelarbird.com',
+    origin: ['http://spelarbird.com', 'https://spelarbird.com'],
     credentials: true,
   }));
 } else {
