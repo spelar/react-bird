@@ -11,7 +11,7 @@ import {
   LOAD_POSTS_SUCCESS, 
 	 LIKE_POST_REQUEST, UNLIKE_POST_REQUEST, LIKE_POST_SUCCESS, LIKE_POST_FAILURE, UNLIKE_POST_SUCCESS, UNLIKE_POST_FAILURE, UPLOAD_IMAGES_REQUEST, UPLOAD_IMAGES_SUCCESS, UPLOAD_IMAGES_FAILURE, RETWEET_REQUEST, RETWEET_SUCCESS, RETWEET_FAILURE,
 	 LOAD_USER_POSTS_FAILURE, LOAD_USER_POSTS_REQUEST, LOAD_USER_POSTS_SUCCESS, LOAD_HASHTAG_POSTS_FAILURE,
-  LOAD_HASHTAG_POSTS_REQUEST, LOAD_HASHTAG_POSTS_SUCCESS,
+  LOAD_HASHTAG_POSTS_REQUEST, LOAD_HASHTAG_POSTS_SUCCESS, UPDATE_POST_REQUEST, UPDATE_POST_SUCCESS, UPDATE_POST_FAILURE,
 } from '../reducers/post';
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user';
 
@@ -201,6 +201,25 @@ function* addPost(action) {
 	}
 }
 
+function updatePostAPI(data) {
+	return axios.patch(`/post/${data.PostId}`, data);
+}
+
+function* updatePost(action) {
+	try {
+		const result = yield call(updatePostAPI, action.data);
+		yield put({
+			type: UPDATE_POST_SUCCESS,
+			data: result.data,
+		})
+	} catch (err) {
+		yield put({
+			type: UPDATE_POST_FAILURE,
+			error: err.response.data
+		})
+	}
+}
+
 function removePostAPI(data) {
 	return axios.delete(`/post/${data}`);
 }
@@ -270,6 +289,10 @@ function* watchRemovePost() {
 	yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
 
+function* watchUpdatePost() {
+	yield takeLatest(UPDATE_POST_REQUEST, updatePost);
+}
+
 function* watchLoadPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPost);
 }
@@ -302,6 +325,7 @@ export default function* postSaga() {
     fork(watchLoadHashtagPosts),
 		fork(watchLoadPosts),
 		fork(watchRemovePost),
+		fork(watchUpdatePost),
 		fork(watchAddComment),
 	])
 }
