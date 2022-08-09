@@ -123,7 +123,7 @@ router.get('/unrelated', async (req, res, next) => {
 		});
 		
 		const where = {
-			UserId: { [Op.notIn]: [followings.map((v) => v.id.concat(req.user.id))]}
+			UserId: { [Op.notIn]: followings.map((v) => v.id).concat(req.user.id)}
 		};
 		if (parseInt(req.query.lastId, 10)) {
 			where.id = { [Op.lt]: parseInt(req.query.lastId, 10) }
