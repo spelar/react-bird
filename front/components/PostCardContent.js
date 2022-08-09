@@ -54,7 +54,7 @@ PostCardContent.propTypes = {
 }
 
 PostCardContent.defaultProps = {
-	editMode = false
+	editMode: false
 }
 
 export default PostCardContent;
